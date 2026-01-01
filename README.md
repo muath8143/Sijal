@@ -109,7 +109,7 @@ and stability in production.
 
 <h2>Project Resources</h2>
 <ul>
-  <li>ERD Diagram: <a href="#">https://lucid.app/lucidchart/0ac588ea-6c47-40ff-9f8c-2ddcc49f0a08/edit?invitationId=inv_dd8ca42c-dd44-4e7e-9f78-089609d925f1</a></li>
+  <li>ERD Diagram: <a href="#">https://lucid.app/lucidchart/ed586add-f401-4cce-8977-6620e5f93367/edit?invitationId=inv_c1f6603d-7adb-4735-a2e4-e164ef1abef8&page=0_0#</a></li>
   <li>Postman Documentation: <a href="#">https://documenter.getpostman.com/view/51095397/2sBXVbJZNn</a></li>
   <li>Figma Design: <a href="#">https://www.figma.com/design/NIJsffp2YQOJp0cQm8bale/final-project?node-id=0-1&t=wBFLfeHHZzeEQ0Hg-1</a></li>
   <li>Production Domain: <a href="https://sijal.tech">https://sijal.tech</a></li>
