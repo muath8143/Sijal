@@ -1,1028 +1,115 @@
-<!-- README.html (You can paste this directly into GitHub README.md — GitHub renders HTML) -->
+<h1>Sijal (سِجال) – AI-Powered Interview Preparation Platform</h1>
 
-<h1>Sijal (سِجال) – AI Interview Preparation Platform</h1>
-
-<hr />
-
-<h2>نبذة عن المشروع </h2>
 <p>
-<strong>سِجال</strong> منصة تساعد المستخدم على الاستعداد للمقابلات الوظيفية عبر جلسات مقابلة صوتية،
-حيث يتم إنشاء جلسة مقابلة وتوليد أسئلة مخصصة (حسب السيرة الذاتية أو الوصف الوظيفي)،
-ثم يتم حفظ التسجيل والنص (Transcript) وتحليل الإجابات باستخدام الذكاء الاصطناعي لإعطاء تقييم ونقاط قوة/ضعف.
+<strong>Sijal (سِجال)</strong> is an AI-powered interview preparation platform designed to help job seekers
+experience realistic interview simulations and receive actionable, structured feedback.
+The platform combines artificial intelligence with human HR evaluation to deliver
+a comprehensive and practical interview readiness experience.
 </p>
 
-<h2>Project Overview </h2>
 <p>
-<strong>Sijal</strong> is an AI-powered interview preparation platform that enables users to run voice-based mock interviews.
-The system creates an interview session, generates tailored questions (from CV and/or job description),
-collects call artifacts (recording + transcript), and produces AI-driven feedback including a final score,
-strengths, and weaknesses.
+Users can initiate interview sessions based on their CV or a specific job description,
+participate in voice-based interview simulations, and receive detailed performance evaluations
+including strengths, weaknesses, final scores, and personalized improvement plans.
 </p>
 
-<hr />
-
-<h2>Team</h2>
-<ul>
-  <li>Muath</li>
-  <li>Jumana</li>
-  <li>Abdulmajed</li>
-</ul>
 <p>
-<strong>Note:</strong> Database relationships/ERD were designed collaboratively by the whole team (not attributed to one person).
+سِجال هي منصة ذكية للاستعداد للمقابلات الوظيفية، تهدف إلى محاكاة بيئة المقابلات الواقعية
+وتحليل أداء المتقدم بشكل عملي ودقيق.
+تعتمد المنصة على الذكاء الاصطناعي إلى جانب التقييم الاحترافي من مختصي الموارد البشرية
+لتقديم تجربة شاملة تعكس متطلبات سوق العمل الحقيقي.
 </p>
 
-<hr />
+<p>
+تمكّن المنصة المستخدم من إنشاء جلسة مقابلة بناءً على سيرته الذاتية أو الوصف الوظيفي،
+الدخول في مقابلة صوتية تفاعلية، ثم الحصول على تقرير تفصيلي يشمل التقييم النهائي،
+نقاط القوة، نقاط الضعف، وخطة تطوير شخصية مدعومة بالذكاء الاصطناعي.
+</p>
 
-<h2>Core Features</h2>
-<ul>
-   <li><strong>JWT Authentication:</strong> secure APIs with login and token-based access control</li>
-  <li>Create interview sessions and generate questions based on CV and/or job description</li>
-  <li>Voice interview simulation (phone call) with session validation</li>
-  <li>Store interview recording and transcript after call ends</li>
-  <li>AI interview analysis (final score + strengths + weaknesses)</li>
-  <li><strong>HR Interview module:</strong> conduct interviews with HR and store HR evaluation</li>
-  <li><strong>AI Improvement Plan:</strong> generate a personalized development plan for the user based on feedback</li>
-  <li>Retrieve user sessions and session details with authorization (ownership checks)</li>
-  <li>Health endpoint for deployment monitoring</li>
-<li><strong>Customer Accounts:</strong> register and manage user profiles</li>
-  <li><strong>CV PDF Template (Thymeleaf):</strong> render a professional resume HTML template used for PDF generation</li>
-<li><strong>CV Management:</strong> upload CV PDF, extract text, and parse CV data via n8n workflow</li>
-<li><strong>CV PDF Generation:</strong> generate and download a formatted CV as PDF</li>
-<li><strong>Email Delivery:</strong> send generated CV PDF to a specified email address</li>
-<li><strong>AI CV Suggestions:</strong> generate improvement recommendations for the user’s CV using OpenAI</li>
-</ul>
-<hr />
+<hr/>
 
-<h2>Muath’s Contributions</h2>
+<h2>Key Features</h2>
 <ul>
-  <li>Implemented Interview Session flow endpoints (start session, get sessions, get session by id, get questions payload)</li>
-  <li>Implemented AI Analysis retrieval endpoints (per customer / per session with ownership check)</li>
-  <li>Implemented Vapi webhook endpoint integration for handling end-of-call artifacts</li>
-  <li>Implemented Questions endpoints (add/get/questions-for-session with authorization)</li>
-  <li>Implemented a simple Health endpoint for environment checks</li>
-  <li>
-    Implemented OpenAI integration method:
-    <ul>
-      <li><code>OpenAiService.ask(prompt)</code> (only)</li>
-    </ul>
-  </li>
+  <li>AI-generated interview sessions based on CV or job description</li>
+  <li>Voice-based interview simulation using AI agents</li>
+  <li>Automated interview analysis with scoring and detailed feedback</li>
+  <li>HR-led interview evaluation and professional assessment</li>
+  <li>AI-generated personalized improvement and development plans</li>
+  <li>Secure authentication and authorization using JWT</li>
+  <li>Email notifications for interview session details</li>
 </ul>
 
-<hr />
+<hr/>
 
-<h2>API Endpoints (Muath)</h2>
+<h2>System Workflow</h2>
+<ol>
+  <li>User creates an interview session using CV or job description</li>
+  <li>Interview questions are generated dynamically</li>
+  <li>User joins a voice interview by calling the provided number</li>
+  <li>Interview is recorded and transcribed automatically</li>
+  <li>AI analyzes the interview and generates structured feedback</li>
+  <li>HR evaluation and scoring are added when applicable</li>
+  <li>User receives a detailed analysis and improvement plan</li>
+</ol>
 
-<h3>Health</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/health</code></td>
-      <td>Server health check</td>
-      <td>No</td>
-    </tr>
-  </tbody>
+<hr/>
+
+<h2>Tech Stack</h2>
+<table border="1" cellpadding="8">
+  <tr><th>Area</th><th>Technology</th></tr>
+  <tr><td>Backend</td><td>Spring Boot, Spring MVC, Spring Data JPA</td></tr>
+  <tr><td>Security</td><td>Spring Security, JWT, BCrypt</td></tr>
+  <tr><td>Database</td><td>MySQL (AWS RDS)</td></tr>
+  <tr><td>AI Integration</td><td>OpenAI API</td></tr>
+  <tr><td>Voice Interviews</td><td>Vapi AI</td></tr>
+  <tr><td>Email Service</td><td>Spring Boot Mail (SMTP)</td></tr>
+  <tr><td>Deployment</td><td>AWS Elastic Beanstalk, EC2</td></tr>
 </table>
 
-<h3>Interview Sessions</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/interview-session/start-session-with-cv</code></td>
-      <td>Create a session and generate questions using CV</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/interview-session/start-session-with-description</code></td>
-      <td>Create a session and generate questions using job description</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/interview-session/get_question/{sessionId}</code></td>
-      <td>Public payload for voice agent (valid + questions)</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/interview-session/get-my-sessions</code></td>
-      <td>Get all sessions for the authenticated user</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/interview-session/get-session-by-id/{sessionId}</code></td>
-      <td>Get session details by id (ownership enforced)</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
+<hr/>
+
+<h2>API Endpoints Overview</h2>
+<table border="1" cellpadding="8">
+  <tr>
+    <th>#</th><th>Method</th><th>Endpoint</th><th>Description</th>
+  </tr>
+
+  <tr><td>1</td><td>GET</td><td>/health</td><td>Application health check</td></tr>
+
+  <tr><td>2</td><td>POST</td><td>/api/v1/interview-session/start-session-with-cv</td><td>Start interview using CV</td></tr>
+  <tr><td>3</td><td>POST</td><td>/api/v1/interview-session/start-session-with-description</td><td>Start interview using job description</td></tr>
+  <tr><td>4</td><td>GET</td><td>/api/v1/interview-session/get-my-sessions</td><td>Retrieve user interview sessions</td></tr>
+  <tr><td>5</td><td>GET</td><td>/api/v1/interview-session/get-session-by-id/{id}</td><td>Retrieve session details</td></tr>
+  <tr><td>6</td><td>GET</td><td>/api/v1/interview-session/get_question/{sessionId}</td><td>Retrieve session questions</td></tr>
+
+  <tr><td>7</td><td>GET</td><td>/api/v1/analysis-by-ai/all-analysis</td><td>Retrieve all AI analyses</td></tr>
+  <tr><td>8</td><td>GET</td><td>/api/v1/analysis-by-ai/analysis-for-session/{sessionId}</td><td>Retrieve analysis for a specific session</td></tr>
+
+  <tr><td>9</td><td>GET</td><td>/api/v1/questions/questions-for-session/{sessionId}</td><td>Retrieve interview questions</td></tr>
+
+  <tr><td>10</td><td>POST</td><td>/api/v1/vapi/webhook</td><td>Handle voice interview webhook</td></tr>
 </table>
 
-<h3>Questions</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/questions/add</code></td>
-      <td>Add a question</td>
-      <td>(Project rules)</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/questions/get-all</code></td>
-      <td>Get all questions</td>
-      <td>(Project rules)</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/questions/questions-for-session/{sessionId}</code></td>
-      <td>Get questions for a session (ownership enforced)</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
+<hr/>
 
-<h3>AI Analysis</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/analysis-by-ai/all-analysis</code></td>
-      <td>Get all analyses for authenticated user sessions</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/analysis-by-ai/analysis-for-session/{sessionId}</code></td>
-      <td>Get analysis for a specific session (ownership enforced)</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
+<h2>Deployment</h2>
+<p>
+The backend application is deployed on AWS using a scalable and production-ready setup.
+AWS Elastic Beanstalk is used for application hosting, with EC2 handling compute resources
+and RDS (MySQL) managing persistent data storage.
+</p>
 
-<h3>Vapi Webhook</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/vapi/webhook</code></td>
-      <td>Receive end-of-call report and process recording/transcript</td>
-      <td>No (secured by webhook secret recommended)</td>
-    </tr>
-  </tbody>
-</table>
+<p>
+The system includes health checks and monitoring to ensure application availability
+and stability in production.
+</p>
 
-<hr />
+<hr/>
 
-<h2>Services (Muath)</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Service</th>
-      <th>Main Responsibility</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>InterviewSessionService</code></td>
-      <td>Create session, generate questions, email session ID, return session payload, fetch user sessions</td>
-    </tr>
-    <tr>
-      <td><code>QuestionService</code></td>
-      <td>CRUD for questions + generate questions from CV / CV + job description</td>
-    </tr>
-    <tr>
-      <td><code>RecordingInterviewService</code></td>
-      <td>Handle Vapi webhook, store recording/transcript, trigger AI analysis</td>
-    </tr>
-    <tr>
-      <td><code>InterviewAnalysisByAiService</code></td>
-      <td>Return AI analysis DTOs (per user / per session) + save AI analysis for transcript</td>
-    </tr>
-    <tr>
-      <td><code>OpenAiService</code></td>
-      <td><strong>Muath contribution:</strong> <code>ask(prompt)</code> only</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr />
-
-<h2>Abdulmajed’s Contributions</h2>
+<h2>Project Resources</h2>
 <ul>
-  <li>Implemented Spring Security configuration (JWT + roles/authorities integration)</li>
-  <li>Implemented JWT Filter and password encoding (PasswordEncoder)</li>
-  <li>Implemented Authentication flow (Login → JWT token)</li>
-  <li>Implemented Customer module endpoints (register + account management)</li>
-  <li>Implemented CV module (CRUD + “My CV” retrieval)</li>
-  <li>Implemented CV upload flow (PDF upload → extract text → n8n parse → save CV)</li>
-  <li>Implemented CV PDF generation endpoint (download as attachment)</li>
-  <li>Implemented CV email sending endpoint (send generated CV PDF to recipient)</li>
-  <li>Implemented OpenAI CV recommendations endpoint (cvImprovementSuggestions usage)</li>
-  <li>Implemented CV PDF HTML template using Thymeleaf (professional resume layout used in PDF generation)</li>
-  <li>Implemented the overall backend architecture and initialized the complete project scaffolding (packages/modules/folders) for the team</li>
-<li>Implemented shared conventions and base layers (DTO IN/OUT, Advice/exception handling structure, validation groups, and Thymeleaf templates setup)</li>
-</ul>
-
-<hr />
-
-<h2>API Endpoints (Abdulmajed)</h2>
-
-<h3>Auth</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/auth/login</code></td>
-      <td>Login and return JWT token</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/auth/test/role</code></td>
-      <td>Return current user authorities (debug)</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>Customer</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/customer/register-customer</code></td>
-      <td>Register a new customer</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/customer/get-customers</code></td>
-      <td>Get all customers</td>
-      <td>(Project rules)</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/customer/update-customer</code></td>
-      <td>Update authenticated customer</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/api/v1/customer/delete-customer</code></td>
-      <td>Delete authenticated customer</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>CV</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/cv/get-all-cv</code></td>
-      <td>Get all CVs</td>
-      <td>(Project rules)</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/cv/get-my-cv</code></td>
-      <td>Get CV for authenticated user</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/cv/create-cv</code></td>
-      <td>Create CV for authenticated user</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/cv/update-cv</code></td>
-      <td>Update CV for authenticated user</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/api/v1/cv/delete-cv</code></td>
-      <td>Delete CV for authenticated user</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/cv/get-my-cv</code></td>
-      <td>Get CV for authenticated user</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>CV Upload</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/cv/upload-cv</code></td>
-      <td>Upload CV PDF, extract text, parse via n8n, then save CV</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>CV PDF</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/cv/download-generate-cv</code></td>
-      <td>Generate and download CV as PDF (attachment)</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>CV Email</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/cv/send-cv-to-email</code></td>
-      <td>Send generated CV PDF to a recipient email</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3>AI (OpenAI)</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/cv/get-recommendation</code></td>
-      <td>Get CV improvement suggestions from AI</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr />
-
-<h2>Services (Abdulmajed)</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Service</th>
-      <th>Main Responsibility</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>CVService</code></td>
-      <td>CV CRUD, upload+parse flow, and AI recommendations orchestration</td>
-    </tr>
-    <tr>
-      <td><code>PDFParserService</code></td>
-      <td>Extract text from uploaded CV PDF using PDFBox</td>
-    </tr>
-    <tr>
-      <td><code>N8nIntegrationService</code></td>
-      <td>Send CV text to n8n webhook and map parsed CV fields</td>
-    </tr>
-    <tr>
-      <td><code>OpenAiService</code></td>
-      <td>Generate CV improvement suggestions (cvImprovementSuggestions endpoint)</td>
-    </tr>
-    <tr>
-      <td><code>CvPdfGeneratorService</code></td>
-      <td>Generate CV PDF using Thymeleaf HTML template (professional resume layout)</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr />
-
-<h2>Templates (Abdulmajed)</h2>
-<ul>
-  <li><code>resume.html</code> (Thymeleaf): Professional Resume HTML template used for CV PDF generation</li>
-</ul>
-
-<hr />
-
-<!-- ===================== JUMANA SECTION ===================== -->
-
-<h2>Jumanah’s Contributions</h2>
-<ul>
-  <li>Implemented HR management module (register/update/delete/activate HR + ordered listing)</li>
-  <li>Implemented HR interview lifecycle (start/update/cancel/end/delete + retrieval for customer/HR)</li>
-  <li>Implemented HR analysis module (CRUD interview analysis)</li>
-  <li>
-    <strong>Implemented AI Development Plan endpoint</strong>
-    <ul>
-      <li>Generate AI-based development plan for customer based on HR interview analysis</li>
-      <li>Endpoint: <code>GET /api/v1/Interview-analysis-by-hr/development-plan</code></li>
-    </ul>
-  </li>
-  <li>Implemented HR rating module (add/update/delete + top rating + filters by HR/customer)</li>
-  <li>Implemented interview request module (send/update/approve/reject/delete + list requests)</li>
-  <li>Implemented subscription module (subscribe/get/cancel)</li>
-  <li>Implemented payment status & callback endpoints</li>
-  <li>Implemented card management endpoints (add/update/delete + get cards + get my cards)</li>
-  <li>Implemented Jitsi meeting link creation service</li>
-  <li>Implemented email service (basic email)</li>
-</ul>
-
-<hr />
-
-<h2>API Endpoints (Jumanah)</h2>
-
-<!-- HR MANAGEMENT -->
-<h3>HR Management</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/hr/register-hr</code></td>
-      <td>Register HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/hr/update-hr</code></td>
-      <td>Update HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/api/v1/hr/delete-hr</code></td>
-      <td>Delete HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/hr/activate-hr/{hr_id}</code></td>
-      <td>Activate HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/hr/get-hr</code></td>
-      <td>Get HR list</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/hr/get-hr-ordered</code></td>
-      <td>Get ordered HR list</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- INTERVIEW WITH HR -->
-<h3>Interview With HR</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/Interview-with-hr/start-interview/{interview_id}</code></td>
-      <td>Start HR interview</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/Interview-with-hr/update-interview/{interview_id}</code></td>
-      <td>Update HR interview</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/Interview-with-hr/cancel-interview/{interview_id}</code></td>
-      <td>Cancel HR interview</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/Interview-with-hr/end-interview/{interview_id}</code></td>
-      <td>End HR interview</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/api/v1/Interview-with-hr/delete-interview/{interview_id}</code></td>
-      <td>Delete HR interview</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/Interview-with-hr/get-interviews</code></td>
-      <td>Get all HR interviews</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/Interview-with-hr/get-interview-by-customer</code></td>
-      <td>Get HR interviews for customer</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/Interview-with-hr/get-interview-by-hr</code></td>
-      <td>Get HR interviews for HR</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- INTERVIEW ANALYSIS BY HR -->
-<h3>Interview Analysis By HR</h3>
-<p><strong>Base Path:</strong> <code>/api/v1/Interview-analysis-by-hr</code></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/add-interview-analysis/{interview_id}</code></td>
-      <td>Add interview analysis (HR evaluation)</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/update-interview-analysis/{analysis_id}</code></td>
-      <td>Update interview analysis</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/delete-interview-analysis/{analysis_id}</code></td>
-      <td>Delete interview analysis</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/get-interviews-analysis</code></td>
-      <td>Get all interviews analysis</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/get-interview-analysis-by-customer</code></td>
-      <td>Get interview analysis for customer</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/get-interview-analysis-by-hr</code></td>
-      <td>Get interview analysis for HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/development-plan</code></td>
-      <td>Get AI-driven development plan for customer</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- HR RATING -->
-<h3>HR Rating</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/rating-hr/add-rating/{hr_id}</code></td>
-      <td>Add rating for HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/rating-hr/update-rating{rating_id}</code></td>
-      <td>Update rating</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/api/v1/rating-hr/delete-rating/{rating_id}</code></td>
-      <td>Delete rating</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/rating-hr/get-rating</code></td>
-      <td>Get all ratings</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/rating-hr/get-top-rating</code></td>
-      <td>Get top rated HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/rating-hr/get-rating-by-hr/{hr_id}</code></td>
-      <td>Get ratings for HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/rating-hr/get-rating-by-customer</code></td>
-      <td>Get customer ratings</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- REQUEST INTERVIEW -->
-<h3>Request Interview</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/request-interview/get-request</code></td>
-      <td>Get all interview requests</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/request-interview/send-request/{hr_id}</code></td>
-      <td>Send interview request to HR</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/request-interview/update-request/{request_id}</code></td>
-      <td>Update interview request</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/request-interview/approve-request/{request_id}</code></td>
-      <td>Approve request</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/request-interview/reject-request/{request_id}</code></td>
-      <td>Reject request</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/api/v1/request-interview/delete-request/{request_id}</code></td>
-      <td>Delete request</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- SUBSCRIPTION -->
-<h3>Subscription</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/subscription/subscribe</code></td>
-      <td>Create subscription</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/subscription/get-subscription</code></td>
-      <td>Get subscription</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/api/v1/subscription/cancel-subscribe/{subscription_id}</code></td>
-      <td>Cancel subscription</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- CARDS -->
-<h3>Cards</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/card/get-cards</code></td>
-      <td>Get all cards</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>POST</td>
-      <td><code>/api/v1/card/add-card</code></td>
-      <td>Add card</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>PUT</td>
-      <td><code>/api/v1/card/update-card/{card_id}</code></td>
-      <td>Update card</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>DELETE</td>
-      <td><code>/api/v1/card/delete-card/{card_id}</code></td>
-      <td>Delete card</td>
-      <td>Yes</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/card/get-my-cards</code></td>
-      <td>Get my cards</td>
-      <td>Yes</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- PAYMENTS -->
-<h3>Payments</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Method</th>
-      <th>Endpoint</th>
-      <th>Description</th>
-      <th>Auth</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/payments/get-status/{id}</code></td>
-      <td>Get payment status</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td><code>/api/v1/payments/callback</code></td>
-      <td>Payment gateway callback</td>
-      <td>No</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr />
-
-<h2>Services (Jumanah)</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Service</th>
-      <th>Main Responsibility</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>HrService</code></td>
-      <td>HR register/update/delete/activate + ordered listing</td>
-    </tr>
-    <tr>
-      <td><code>InterviewWithHrService</code></td>
-      <td>Start/update/cancel/end HR interviews + retrieve by HR/customer</td>
-    </tr>
-    <tr>
-      <td><code>InterviewAnalysisByHrService</code></td>
-      <td>CRUD HR interview analysis + generate development plan</td>
-    </tr>
-    <tr>
-      <td><code>RatingHrService</code></td>
-      <td>CRUD HR ratings + top rating + filters</td>
-    </tr>
-    <tr>
-      <td><code>RequestInterviewService</code></td>
-      <td>Send/update/approve/reject/delete interview requests</td>
-    </tr>
-    <tr>
-      <td><code>SubscriptionService</code></td>
-      <td>Subscribe/get/cancel subscription</td>
-    </tr>
-    <tr>
-      <td><code>PaymentService</code></td>
-      <td>Payment status retrieval</td>
-    </tr>
-    <tr>
-      <td><code>CardService</code></td>
-      <td>CRUD cards + get my cards</td>
-    </tr>
-    <tr>
-      <td><code>JitsiService</code></td>
-      <td>Create Jitsi room link (meeting link generation)</td>
-    </tr>
-    <tr>
-      <td><code>SendMailService</code></td>
-      <td>Send emails (simple message)</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr />
-
-<h2>Models (Jumanah)</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Model</th>
-      <th>Used In</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>User</code></td>
-      <td>Auth/ownership checks across HR modules</td>
-    </tr>
-    <tr>
-      <td><code>InterviewWithHR</code></td>
-      <td>HR interview lifecycle</td>
-    </tr>
-    <tr>
-      <td><code>InterviewAnalysisByHR</code></td>
-      <td>HR analysis + development plan</td>
-    </tr>
-    <tr>
-      <td><code>RatingHr</code></td>
-      <td>HR rating module</td>
-    </tr>
-    <tr>
-      <td><code>RequestInterview</code></td>
-      <td>Request interview module</td>
-    </tr>
-    <tr>
-      <td><code>Card</code></td>
-      <td>Card management</td>
-    </tr>
-    <tr>
-      <td><code>CV</code></td>
-      <td>Email service (basic email)</td>
-    </tr>
-  </tbody>
-</table>
-
-<hr />
-
-
-<h2>Links</h2>
-<ul>
-  <li><strong>ERD:</strong> <a href="https://lucid.app/lucidchart/ed586add-f401-4cce-8977-6620e5f93367/edit?viewport_loc=-2615%2C-189%2C4427%2C1956%2C0_0&invitationId=inv_c1f6603d-7adb-4735-a2e4-e164ef1abef8">https://lucid.app/lucidchart/ed586add-f401-4cce-8977-6620e5f93367/edit?viewport_loc=-2615%2C-189%2C4427%2C1956%2C0_0&invitationId=inv_c1f6603d-7adb-4735-a2e4-e164ef1abef8</a></li>
-  <li><strong>Postman Documentation:</strong> <a href="https://documenter.getpostman.com/view/51095397/2sBXVbJZNn">https://documenter.getpostman.com/view/51095397/2sBXVbJZNn</a></li>
-  <li><strong>Figma:</strong> <a href="https://www.figma.com/design/NIJsffp2YQOJp0cQm8bale/Customizable-Online-Car-Repair-Garage-UI-Design---Fully-Editable-Dashboard-for-Desktop---Free-Downlo--Community-?node-id=0-1&t=wBFLfeHHZzeEQ0Hg-1">https://www.figma.com/design/NIJsffp2YQOJp0cQm8bale/Customizable-Online-Car-Repair-Garage-UI-Design---Fully-Editable-Dashboard-for-Desktop---Free-Downlo--Community-?node-id=0-1&t=wBFLfeHHZzeEQ0Hg-1</a></li>
-  <li><strong>Domain:</strong> <a href="https://sijal.tech">https://sijal.tech</a></li>
+  <li>ERD Diagram: <a href="#">https://lucid.app/lucidchart/0ac588ea-6c47-40ff-9f8c-2ddcc49f0a08/edit?invitationId=inv_dd8ca42c-dd44-4e7e-9f78-089609d925f1</a></li>
+  <li>Postman Documentation: <a href="#">https://documenter.getpostman.com/view/51095397/2sBXVbJZNn</a></li>
+  <li>Figma Design: <a href="#">https://www.figma.com/design/NIJsffp2YQOJp0cQm8bale/final-project?node-id=0-1&t=wBFLfeHHZzeEQ0Hg-1</a></li>
+  <li>Production Domain: <a href="https://sijal.tech">https://sijal.tech</a></li>
 </ul>
