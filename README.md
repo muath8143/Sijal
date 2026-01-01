@@ -77,31 +77,47 @@ interview sessions, questions, AI analysis, and voice interview processing.
 These components handle the interview lifecycle from session creation to final evaluation
 and feedback delivery.
 </p>
+<h3>Domain Models & Entity Relationships</h3>
 
-<h3>Domain Models</h3>
+<p>
+The core domain models are designed with clearly defined relationships to reflect
+the real interview lifecycle and enforce data ownership, integrity, and access control.
+Entity relationships were implemented using JPA annotations to ensure consistency
+between the application layer and the relational database schema.
+</p>
+
 <ul>
   <li>
     <strong>InterviewSession</strong><br/>
-    Represents an interview session created by the user, including its status,
-    creation time, associated questions, and related analysis and recordings.
+    Acts as the central aggregate root and is associated with:
+    <ul>
+      <li>Many <strong>Question</strong> entities (One-to-Many)</li>
+      <li>One <strong>InterviewAnalysisByAi</strong> entity (One-to-One)</li>
+      <li>One <strong>RecordingInterview</strong> entity (One-to-One)</li>
+      <li>One <strong>Customer</strong> entity (Many-to-One)</li>
+    </ul>
   </li>
 
   <li>
     <strong>Question</strong><br/>
-    Stores dynamically generated interview questions linked to a specific interview session.
+    Linked to a single interview session using a Many-to-One relationship,
+    ensuring questions are scoped to their owning session.
   </li>
 
   <li>
     <strong>InterviewAnalysisByAi</strong><br/>
-    Holds AI-generated interview evaluation results such as final score,
-    strengths, and weaknesses for a completed session.
+    Uses a shared primary key with <strong>InterviewSession</strong>
+    through a One-to-One mapping, guaranteeing a single analysis per session.
   </li>
 
   <li>
     <strong>RecordingInterview</strong><br/>
-    Manages voice interview recordings and transcripts received from the voice AI provider.
+    Mapped One-to-One with <strong>InterviewSession</strong>
+    using a shared identifier to bind recordings and transcripts
+    to their respective sessions.
   </li>
 </ul>
+
 
 <h3>Application Services</h3>
 <ul>
