@@ -67,7 +67,76 @@ including strengths, weaknesses, final scores, and personalized improvement plan
 </table>
 
 <hr/>
+<hr/>
 
+<h2>Core Domain Models & Services</h2>
+
+<p>
+The following components represent the core backend logic responsible for managing
+interview sessions, questions, AI analysis, and voice interview processing.
+These components handle the interview lifecycle from session creation to final evaluation
+and feedback delivery.
+</p>
+
+<h3>Domain Models</h3>
+<ul>
+  <li>
+    <strong>InterviewSession</strong><br/>
+    Represents an interview session created by the user, including its status,
+    creation time, associated questions, and related analysis and recordings.
+  </li>
+
+  <li>
+    <strong>Question</strong><br/>
+    Stores dynamically generated interview questions linked to a specific interview session.
+  </li>
+
+  <li>
+    <strong>InterviewAnalysisByAi</strong><br/>
+    Holds AI-generated interview evaluation results such as final score,
+    strengths, and weaknesses for a completed session.
+  </li>
+
+  <li>
+    <strong>RecordingInterview</strong><br/>
+    Manages voice interview recordings and transcripts received from the voice AI provider.
+  </li>
+</ul>
+
+<h3>Application Services</h3>
+<ul>
+  <li>
+    <strong>InterviewSessionService</strong><br/>
+    Handles interview session creation, validation, question generation,
+    subscription checks, and secure session access.
+  </li>
+
+  <li>
+    <strong>QuestionService</strong><br/>
+    Responsible for generating interview questions using AI based on the user’s CV
+    and optional job description, and retrieving session-related questions.
+  </li>
+
+  <li>
+    <strong>InterviewAnalysisByAiService</strong><br/>
+    Processes interview transcripts, interacts with the AI engine,
+    generates structured analysis results, and persists evaluation data.
+  </li>
+
+  <li>
+    <strong>RecordingInterviewService</strong><br/>
+    Handles incoming webhooks from the voice interview provider,
+    extracts session identifiers, stores recordings, transcripts,
+    and triggers AI analysis upon interview completion.
+  </li>
+
+  <li>
+    <strong>OpenAiService</strong><br/>
+    Manages all interactions with the OpenAI API,
+    including prompt construction, response parsing,
+    and structured JSON output handling.
+  </li>
+</ul>
 <h2>API Endpoints Overview</h2>
 <table border="1" cellpadding="8">
   <tr>
