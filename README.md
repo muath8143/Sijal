@@ -105,6 +105,7 @@ and stability in production.
 </p>
 
 <hr/>
+<img width="1675" height="1680" alt="Blank diagram" src="https://github.com/user-attachments/assets/b62ea710-da1c-4719-a176-cb5e87826716" />
 
 <h2>Project Resources</h2>
 <ul>
